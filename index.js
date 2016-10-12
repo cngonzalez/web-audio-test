@@ -2,6 +2,10 @@
 
 // 1) get an mp3 to load and play in the browser
 document.getElementById('play').addEventListener('click', handlePlayClick);
+document.getElementById('files').addEventListener('change', function(e){
+  e.stopImmediatePropagation()
+  handleFileSelect(e)
+})
 
 // sets up new context for playing the stuff
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -39,6 +43,7 @@ function playSound(arraybuffer, startPoint) {
 }
 
 function handleFileSelect(evt) {
+  console.log(evt)
   var files = evt.target.files; // FileList object
   playFile(files[0]);
 }
@@ -51,6 +56,7 @@ function playFile(file) {
         buffer = e.target.result;
     };
   // reads concept as Blob -- returns an ArrayBuffer that represents the data inside (again, where!! and why is this happening at the end of the function?? Maybe need to read up on what an array buffer is.) 
+  
 freader.readAsArrayBuffer(file);
 }
 
