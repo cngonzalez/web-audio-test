@@ -1,0 +1,23 @@
+{
+  "name": "web-audio-test",
+  "version": "1.0.0",
+  "description": "redux prequel",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cngonzalez/web-audio-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cngonzalez/web-audio-test/issues"
+  },
+  "homepage": "https://github.com/cngonzalez/web-audio-test#readme",
+  "dependencies": {
+    "ffmpeg": "0.0.4",
+    "webpack": "^1.13.2"
+  }
+}
