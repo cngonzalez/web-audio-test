@@ -19,5 +19,11 @@
   "dependencies": {
     "ffmpeg": "0.0.4",
     "webpack": "^1.13.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "ffmpeg": "0.0.4",
+    "webpack": "^1.13.2"
   }
 }
