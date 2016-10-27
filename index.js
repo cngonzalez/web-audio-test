@@ -2,6 +2,7 @@
 
 // 1) get an mp3 to load and play in the browser
 document.getElementById('play').addEventListener('click', handlePlayClick);
+document.getElementById('cut-n-paste').addEventListener('click', cutAndPaste);
 
 // sets up new context for playing the stuff
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -17,8 +18,35 @@ var wavesurfer = WaveSurfer.create({
 
   wavesurfer.load('http://localhost:3000/stellar.mp3')
   wavesurfer.on('ready', function(){
+    wavesurfer.enableDragSelection();
     wavesurfer.play();
   });
+
+document.getElementById('play-pause').addEventListener('click', wavesurfer.playPause())
+
+function cutAndPaste() {
+  var original_buffer = wavesurfer.backend.buffer
+  var new_buffer = wavesurfer.backend.ac.createBuffer(original_buffer.numberOfChannels, original_buffer.length, original_buffer.sampleRate);
+  var samples = []
+  selections = wavesurfer.regions.list
+  for (var region in selections) {
+    var start = selections[region].start * original_buffer.sampleRate
+    var end = selections[region].end * original_buffer.sampleRate
+    var mem_allocation = original_buffer.length - end
+    var first_list = new Float32Array(parseInt(start))
+    var second_list = new Float32Array(parseInt(mem_allocation))
+    var combined = new Float32Array(parseInt(original_buffer.length))
+    original_buffer.copyFromChannel(first_list, 0);
+    original_buffer.copyFromChannel(second_list, 0, end)
+
+    combined.set(first_list)
+    combined.set(second_list, start)
+
+    new_buffer.copyToChannel(combined, 0);
+    
+    debugger;
+  }
+}
 
 function handlePlayClick() {
   if (paused) {
