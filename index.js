@@ -11,6 +11,14 @@ var startedAt;
 var pausedAt;
 var paused;
 var buffer;
+var wavesurfer = WaveSurfer.create({
+  container: '#waveform'
+});
+
+  wavesurfer.load('http://localhost:3000/stellar.mp3')
+  wavesurfer.on('ready', function(){
+    wavesurfer.play();
+  });
 
 function handlePlayClick() {
   if (paused) {
@@ -44,6 +52,7 @@ function handleFileSelect(evt) {
 }
 
 function playFile(file) {
+    console.log(typeof file)
     var freader = new FileReader();
   // FileReader's onload function is a listener for when the event is fully loaded. (but where does the info go??)
     freader.onload = function (e) {
